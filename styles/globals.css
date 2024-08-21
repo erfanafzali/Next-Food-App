@@ -9,3 +9,9 @@
     text-wrap: balance;
   }
 }
+
+
+* {
+  transition: all ;
+  transition-duration: 1000ms;
+}
