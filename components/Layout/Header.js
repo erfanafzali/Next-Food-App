@@ -12,7 +12,7 @@ function Header() {
           FoodApp
         </Link>
         <div className="flex justify-center items-center gap-x-5 text-base lg:text-lg font-semibold text-gray-700">
-          <Link href="">
+          <Link href="/menu">
             <HoverEffect title="Menu" />
           </Link>
           <Link href="">

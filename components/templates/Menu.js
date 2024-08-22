@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+import Dollar from "../icons/Dollar";
 import Location from "../icons/Location";
 
 function Menu({ data }) {
@@ -14,17 +16,31 @@ function Menu({ data }) {
             <div className="w-full shadow-md rounded-md overflow-hidden">
               <img src={`/images/${item.id}.jpeg`} alt={item.id} />
               <div className="w-full my-4">
-                <div>
-                  <h3>{item.name}</h3>
-                  <div>
-                    <span>{item.details[0].Cuisine}</span>
-                    <span>
-                      <Location />
-                    </span>
+                <div className="w-full flex justify-between items-center px-4">
+                  <h3 className="font-bold text-green-500 text-lg">
+                    {item.name}
+                  </h3>
+                  <div className=" flex justify-center items-center gap-x-1 font-semibold">
+                    <Location className="" />
+                    <p className="text-slate-500 text-sm">
+                      {item.details[0].Cuisine}
+                    </p>
                   </div>
                 </div>
-                <div></div>
-                <div></div>
+
+                <div className="flex justify-start items-center px-4 mt-2">
+                  <Dollar />
+                  <h3
+                    className={`${
+                      item.discount > 0 ? "text-red-500" : ""
+                    } font-bold text-lg`}
+                  >
+                    {item.price}$
+                  </h3>
+                </div>
+                <div className="w-full px-4">
+                  <button className="w-full bg-green-500 text-white font-bold text-lg py-1 mt-5 rounded-md">See Details</button>
+                </div>
               </div>
             </div>
           </li>
