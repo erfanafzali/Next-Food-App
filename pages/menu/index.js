@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import Menu from "@/components/templates/Menu";
 import { useEffect, useState } from "react";
 

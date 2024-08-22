@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Link from "next/link";
 import Dollar from "../icons/Dollar";
 import Location from "../icons/Location";
 
@@ -38,9 +39,11 @@ function Menu({ data }) {
                     {item.price}$
                   </h3>
                 </div>
-                <div className="w-full px-4">
-                  <button className="w-full bg-green-500 text-white font-bold text-lg py-1 mt-5 rounded-md">See Details</button>
-                </div>
+                <Link href={`/menu/${item.id}`} className="w-full px-4 flex justify-center items-center">
+                  <button className="w-full bg-green-500 text-white font-bold text-lg py-1 mt-5 rounded-md hover:bg-green-300">
+                    See Details
+                  </button>
+                </Link>
               </div>
             </div>
           </li>
