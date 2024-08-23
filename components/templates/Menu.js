@@ -13,7 +13,7 @@ function Menu({ data }) {
       </h2>
       <ul className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-x-4 gap-y-4 mt-16">
         {data.map((item) => (
-          <li key={item.id} className="w-full">
+          <li key={item.id} className="w-full mb-8">
             <div className="w-full shadow-md rounded-md overflow-hidden">
               <img src={`/images/${item.id}.jpeg`} alt={item.id} />
               <div className="w-full my-4">
@@ -33,13 +33,20 @@ function Menu({ data }) {
                   <Dollar />
                   <h3
                     className={`${
-                      item.discount > 0 ? "text-red-500" : ""
+                      item.discount  ? "text-red-500" : ""
                     } font-bold text-lg`}
                   >
-                    {item.price}$
+                    {item.discount ? (
+                      <span>{(item.price * (100 - item.discount)) / 100}$</span>
+                    ) : (
+                      <span>{item.price}</span>
+                    )}
                   </h3>
                 </div>
-                <Link href={`/menu/${item.id}`} className="w-full px-4 flex justify-center items-center">
+                <Link
+                  href={`/menu/${item.id}`}
+                  className="w-full px-4 flex justify-center items-center"
+                >
                   <button className="w-full bg-green-500 text-white font-bold text-lg py-1 mt-5 rounded-md hover:bg-green-300">
                     See Details
                   </button>

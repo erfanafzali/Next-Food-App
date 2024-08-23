@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 function FoodAppDetail() {
   return (
     <div className="w-full flex  lg:flex-row justify-center items-center gap-x-20 gap-y-12 flex-col-reverse">

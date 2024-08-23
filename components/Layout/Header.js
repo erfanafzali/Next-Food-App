@@ -15,7 +15,7 @@ function Header() {
           <Link href="/menu">
             <HoverEffect title="Menu" />
           </Link>
-          <Link href="">
+          <Link href="/categories">
             <HoverEffect title="Categories" />
           </Link>
         </div>
