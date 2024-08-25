@@ -1,26 +1,47 @@
 import DetailsPage from "@/components/templates/DetailsPage";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 
-const BASE_URL = "http://localhost:4000/data";
-
-function FoodDetail() {
+function FoodDetail({ data }) {
   const router = useRouter();
-  const id = router?.query?.id;
-  const [dataMenu, setDataMenu] = useState(null || []);
 
-  useEffect(() => {
-    async function fetchData() {
-      if (id === undefined) return null;
-      const res = await fetch(`${BASE_URL}/${id}`);
-      const data = await res.json();
-      setDataMenu(data);
-    }
-
-    fetchData();
-  }, [id]);
-
-  return <DetailsPage dataMenu={dataMenu} />;
+  if (router.isFallback) {
+    return <h2>Loading Page...</h2>;
+  }
+  return <DetailsPage dataMenu={data} />;
 }
 
 export default FoodDetail;
+
+export async function getStaticPaths() {
+  const res = await fetch("http://localhost:4000/data");
+  const json = await res.json();
+  const data = json.slice(0, 15);
+
+  const paths = data.map((food) => ({
+    params: { id: food.id.toString() },
+  }));
+
+  return {
+    paths,
+    fallback: true,
+  };
+}
+
+export async function getStaticProps(context) {
+  const {
+    params: { id },
+  } = context;
+  const res = await fetch(`http://localhost:4000/data/${id}`);
+  const data = await res.json();
+
+  if (!data.id) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: { data },
+    revalidate: 10,
+  };
+}

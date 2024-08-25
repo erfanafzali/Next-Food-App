@@ -15,9 +15,9 @@ function Order() {
       </ul>
 
       <ul className="w-full flex justify-between mt-20 md:mt-28 mb-16 font-semibold text-sm md:text-base lg:text-lg items-center gap-x-4 text-slate-600 ">
-        <Link href="" className="px-6 md:px-16 rounded-md py-2 shadow-md bg-white">Menu</Link>
-        <Link href="" className="px-6 md:px-16 rounded-md py-2 shadow-md bg-white">Categories</Link>
-        <Link href="" className="px-6 md:px-16 rounded-md py-2 shadow-md bg-white">Discount</Link>
+        <Link href="/menu" className="px-6 md:px-16 rounded-md py-2 shadow-md bg-white">Menu</Link>
+        <Link href="/categories" className="px-6 md:px-16 rounded-md py-2 shadow-md bg-white">Categories</Link>
+        <Link href="/" className="px-6 md:px-16 rounded-md py-2 shadow-md bg-white">Discount</Link>
       </ul>
     </div>
   );

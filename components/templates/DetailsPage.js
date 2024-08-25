@@ -5,8 +5,9 @@ import Dollar from "../icons/Dollar";
 
 /* eslint-disable jsx-a11y/alt-text */
 function DetailsPage({ dataMenu }) {
-  if (dataMenu.id === undefined) return null;
-  console.log(dataMenu.id);
+  if (dataMenu?.id === undefined) return null;
+
+ 
 
   return (
     <div className="w-full mb-32">
