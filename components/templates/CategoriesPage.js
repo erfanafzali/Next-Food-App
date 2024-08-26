@@ -1,19 +1,30 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
-/* eslint-disable jsx-a11y/alt-text */
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CardFood from "./CardFood";
 
 function CategoriesPage({ data }) {
-  const [query, setQuery] = useState({ difficulty: "", time: "" });
   const router = useRouter();
+
+  const [query, setQuery] = useState({ difficulty: "", time: "" });
+
+  useEffect(() => {
+    const { difficulty, time } = router.query;
+    if (query.difficulty !== difficulty || query.time !== time) {
+      setQuery({ difficulty, time });
+    }
+  }, []);
 
   const changeHandler = (e) => {
     setQuery({ ...query, [e.target.name]: e.target.value });
   };
 
-  const serachHandler = () => {
-    router.push({ pathname: "/categories", query });
+  const searchHandler = () => {
+    router.push({
+      pathname: "/categories",
+      query,
+    });
   };
 
   return (
@@ -23,8 +34,8 @@ function CategoriesPage({ data }) {
       </h2>
       <div className="w-full flex flex-col md:flex-row justify-start items-center  px-4 gap-y-6 mt-16 gap-x-4">
         <select
+          value={query.difficulty}
           name="difficulty"
-          value={query.value}
           onChange={changeHandler}
           className=" md:w-48 w-full  py-2 outline-none rounded-lg bg-white shadow-md text-green-500"
         >
@@ -34,8 +45,8 @@ function CategoriesPage({ data }) {
           <option value="Hard">Hard</option>
         </select>
         <select
+          value={query.time}
           name="time"
-          value={query.value}
           onChange={changeHandler}
           className=" md:w-48 w-full py-2 outline-none rounded-lg bg-white shadow-md text-green-500"
         >
@@ -44,14 +55,17 @@ function CategoriesPage({ data }) {
           <option value="less">Less than 30 min</option>
         </select>
         <button
-          onClick={serachHandler}
+          onClick={searchHandler}
           className="w-full md:w-48 py-2 bg-green-500 rounded-md text-white font-bold shadow border-0 outline-none"
         >
           Search
         </button>
       </div>
       <div className=" mt-5 mb-32">
-        {!data.length ? <img src="/images/search.png" /> : null}
+        {!data.length ? (
+          // eslint-disable-next-line jsx-a11y/alt-text
+          <img src="/images/search.png" className="mx-auto mt-10" />
+        ) : null}
         <ul className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-x-4 gap-y-4 mt-16">
           {data.map((item) => (
             <CardFood key={item.id} item={item} />

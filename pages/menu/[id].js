@@ -1,3 +1,4 @@
+import Loader from "@/components/modules/Loader";
 import DetailsPage from "@/components/templates/DetailsPage";
 import { useRouter } from "next/router";
 
@@ -5,17 +6,16 @@ function FoodDetail({ data }) {
   const router = useRouter();
 
   if (router.isFallback) {
-    return <h2>Loading Page...</h2>;
+    return <Loader />;
   }
-  return <DetailsPage dataMenu={data} />;
+  return <DetailsPage data={data} />;
 }
 
 export default FoodDetail;
 
 export async function getStaticPaths() {
-  const res = await fetch("http://localhost:4000/data");
-  const json = await res.json();
-  const data = json.slice(0, 15);
+  const res = await fetch(`${process.env.BASE_URL}/data`);
+  const data = await res.json();
 
   const paths = data.map((food) => ({
     params: { id: food.id.toString() },
@@ -31,7 +31,8 @@ export async function getStaticProps(context) {
   const {
     params: { id },
   } = context;
-  const res = await fetch(`http://localhost:4000/data/${id}`);
+
+  const res = await fetch(`${process.env.BASE_URL}/data/${id}`);
   const data = await res.json();
 
   if (!data.id) {
@@ -42,6 +43,6 @@ export async function getStaticProps(context) {
 
   return {
     props: { data },
-    revalidate: 10,
+    revalidate: +process.env.REVALIDATE,
   };
 }

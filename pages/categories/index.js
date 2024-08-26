@@ -11,10 +11,10 @@ export async function getServerSideProps(context) {
     query: { difficulty, time },
   } = context;
 
-  const res = await fetch("http://localhost:4000/data");
+  const res = await fetch(`${process.env.BASE_URL}/data`);
   const data = await res.json();
 
-  const filterdData = data.filter((item) => {
+  const filteredData = data.filter((item) => {
     const difficultyResult = item.details.filter(
       (detail) => detail.Difficulty && detail.Difficulty === difficulty
     );
@@ -24,19 +24,19 @@ export async function getServerSideProps(context) {
       const [timeDetail] = cookingTime.split(" ");
       if (time === "less" && timeDetail && +timeDetail <= 30) {
         return detail;
-      } else if (time === "more" && timeDetail && +timeDetail > 30) {
+      } else if (time === "more" && +timeDetail > 30) {
         return detail;
       }
     });
-
     if (time && difficulty && timeResult.length && difficultyResult.length) {
       return item;
-    } else if (!time && difficulty && difficulty.length) {
+    } else if (!time && difficulty && difficultyResult.length) {
       return item;
-    } else if (time && !difficulty && time.length) {
+    } else if (time && !difficulty && timeResult.length) {
       return item;
     }
   });
-
-  return { props: { data: filterdData } };
+  return {
+    props: { data: filteredData },
+  };
 }

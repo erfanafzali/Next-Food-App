@@ -4,10 +4,8 @@ import { IoLocationOutline } from "react-icons/io5";
 import Dollar from "../icons/Dollar";
 
 /* eslint-disable jsx-a11y/alt-text */
-function DetailsPage({ dataMenu }) {
-  if (dataMenu?.id === undefined) return null;
-
- 
+function DetailsPage({ data }) {
+  if (data?.id === undefined) return null;
 
   return (
     <div className="w-full mb-32">
@@ -15,10 +13,10 @@ function DetailsPage({ dataMenu }) {
         Details
       </h2>
       <div className="w-full flex flex-col justify-center items-start mt-12">
-        <FoodInfo dataMenu={dataMenu} />
-        <FoodDetails dataMenu={dataMenu} />
-        <FoodIngredients dataMenu={dataMenu} />
-        <FoodRecipe dataMenu={dataMenu} />
+        <FoodInfo data={data} />
+        <FoodDetails data={data} />
+        <FoodIngredients data={data} />
+        <FoodRecipe data={data} />
       </div>
     </div>
   );
@@ -26,60 +24,60 @@ function DetailsPage({ dataMenu }) {
 
 export default DetailsPage;
 
-function FoodInfo({ dataMenu }) {
+function FoodInfo({ data }) {
   return (
     <div className="w-full">
       <div className="w-full flex flex-col md:flex-row justify-start items-center gap-x-6 ">
         <img
-          src={`/images/${dataMenu?.id}.jpeg`}
-          alt={dataMenu?.id}
+          src={`/images/${data?.id}.jpeg`}
+          alt={data?.id}
           className="md:max-h-56 rounded-md"
         />
         <div className="w-full flex flex-col justify-start items-start  min-h-56 px-4">
           <h2 className="font-bold text-xl mt-5 md:text-2xl text-green-500">
-            {dataMenu.name}
+            {data.name}
           </h2>
           <div className=" flex justify-center items-center gap-x-1 font-semibold ">
             <IoLocationOutline className="h-5 mt-3 text-slate-600 w-5" />
             <p className="text-slate-500 text-xl mt-3">
-              {dataMenu.details[0].Cuisine}
+              {data.details[0].Cuisine}
             </p>
           </div>
           <div className="flex justify-start items-center  mt-8">
             <Dollar />
             <h3
               className={`${
-                dataMenu.discount ? "text-red-500" : ""
+                data.discount ? "text-red-500" : ""
               } font-bold text-lg `}
             >
-              {dataMenu.discount
-                ? (dataMenu.price * (100 - dataMenu.discount)) / 100
-                : dataMenu.price}
+              {data.discount
+                ? (data.price * (100 - data.discount)) / 100
+                : data.price}
               $
             </h3>
           </div>
 
-          {dataMenu.discount ? (
+          {data.discount ? (
             <span className="my-5 pl-2 font-bold w-full bg-red-500 text-white py-2  text-center rounded-md text-lg md:w-1/3">
-              {dataMenu.discount}$ OFF
+              {data.discount}$ OFF
             </span>
           ) : null}
         </div>
       </div>
 
       <p className="text-slate-600  text-justify mt-4 md:mt-10 px-4 md:px-0">
-        {dataMenu.introduction}
+        {data.introduction}
       </p>
     </div>
   );
 }
 
-function FoodDetails({ dataMenu }) {
+function FoodDetails({ data }) {
   return (
     <div className="w-full my-16">
       <h2 className="text-2xl font-bold text-green-500 mb-6">Detail</h2>
       <ul className="w-full flex flex-col gap-y-2">
-        {dataMenu.details.map((item, index) => (
+        {data.details.map((item, index) => (
           <li className="space-x-2  " key={index}>
             <span className="font-semibold text-lg before:content-['•']  before:inlineBlock before:text-green-500">
               &nbsp; {Object.keys(item)[0]}:
@@ -94,12 +92,12 @@ function FoodDetails({ dataMenu }) {
   );
 }
 
-function FoodIngredients({ dataMenu }) {
+function FoodIngredients({ data }) {
   return (
     <div className="w-full mb-16">
       <h2 className="text-2xl font-bold text-green-500 mb-6">Ingredients</h2>
       <ul className="w-full flex flex-col gap-y-2">
-        {dataMenu.ingredients.map((item, index) => (
+        {data.ingredients.map((item, index) => (
           <li
             className="font-semibold lg:text-lg before:content-['•']  before:inlineBlock before:text-green-500 text-sm md:text-base"
             key={index}
@@ -112,12 +110,12 @@ function FoodIngredients({ dataMenu }) {
   );
 }
 
-function FoodRecipe({ dataMenu }) {
+function FoodRecipe({ data }) {
   return (
     <div className="w-full mt-12">
       <h2 className="text-2xl font-bold text-green-500 mb-8 ">Recipe</h2>
       <ul className="w-full ">
-        {dataMenu.recipe.map((item, index) => (
+        {data.recipe.map((item, index) => (
           <li
             key={index}
             className="odd:bg-green-200 w-full min-h-20 even:bg-green-400 flex justify-center items-center"
