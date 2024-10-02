@@ -11,6 +11,9 @@ function FoodDetail({ data }) {
   return <DetailsPage data={data} />;
 }
 
+
+
+
 export default FoodDetail;
 
 export async function getStaticPaths() {
